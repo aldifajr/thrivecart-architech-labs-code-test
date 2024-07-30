@@ -1,1 +1,1 @@
-Thrivecart Aarchitech Labs Code Test
+Thrivecart Architech Labs Code Test
