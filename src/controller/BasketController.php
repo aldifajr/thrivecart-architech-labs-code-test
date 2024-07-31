@@ -41,7 +41,7 @@ class BasketController implements BasketInterface{
         foreach($this->items as $key => $item){
             if($item->code === $itemId) {
                 $found = true;
-                unset($this->items[$key]);
+                array_splice($this->items, $key, 1);
             }
         }
 
@@ -105,37 +105,13 @@ class PriceCalculator{
 
         // Check if there are more than 1 items in the basket
         if(count($items) > 1 and $R01IsInTheBasket){
-            $secondMostExpensiveItem = self::get2ndExpensiveItem($items);
-            $discountFromOffers = ($secondMostExpensiveItem->price * 0.5);
-            $activeOffer["offered-item"] = $secondMostExpensiveItem;
+            $discountFromOffers = (bcmul("{$items[1]->price}", "0.5", 2));
+            $activeOffer["offered-item"] = $items[1];
         }
 
         return [
             "offers"                => $activeOffer,
             "discount-from-offers"  => $discountFromOffers
         ];
-    }
-
-    private static function get2ndExpensiveItem(array $items){
-        if (count($items) < 2) {
-            throw new \InvalidArgumentException("There is only 1 item in the basket");
-        }
-    
-        $largest = new Product();
-        $secondLargest = new Product();
-
-        $largest->price = $secondLargest->price = -INF;
-
-        foreach ($items as $item) {
-            if ($item->price > $largest->price) {
-                $secondLargest = $largest;
-                $largest = $item;
-            } elseif ($item->price > $secondLargest->price && $item->price != $largest->price) {
-                $secondLargest = $item;
-            }
-        }
-    
-        return $secondLargest;
-
     }
 }

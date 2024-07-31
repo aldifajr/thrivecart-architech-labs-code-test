@@ -15,6 +15,8 @@ if (php_sapi_name() != 'cli') {
     die("This script must be run from the command line.\n");
 }
 
+error_reporting(E_ERROR | E_PARSE);
+
 $cli = new AppCLI();
 
 if ($argc < 2) {
