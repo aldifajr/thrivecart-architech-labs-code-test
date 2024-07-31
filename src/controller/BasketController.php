@@ -89,23 +89,12 @@ class PriceCalculator{
         }
     }
 
-    // Currently the method only considerig there is only 1 active offer
     private static function getOffers(array $items):array{
-        $R01IsInTheBasket = false;
-        $discountFromOffers = null;
-        $activeOffer = [
-            "name"           => "Buy one red widget, get the second half price"
-        ];
+        $activeOffer = [];
 
-        // Check if R01 is in the basket
-        foreach($items as $key => $item){
-            if($item->code === 'R01') $R01IsInTheBasket = true;
-        }
-
-        // Check if there are more than 1 items in the basket
-        if(count($items) > 1 and $R01IsInTheBasket){
-            $discountFromOffers = self::getDiscountFromOffers($items);
-        }
+        $discountFromOffers = self::getDiscountFromOffers($items);
+        
+        if($discountFromOffers > 0 ) $activeOffer[] = ["name" => "Buy one red widget, get the second half price"];
 
         return [
             "offers"                => $activeOffer,
