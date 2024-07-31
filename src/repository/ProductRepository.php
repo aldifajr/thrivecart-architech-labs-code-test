@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\AppConfig;
+
 class ProductRepository{
 
     public static function getProduct(string $productCode): Product{
         $desiredProduct = new Product();
-        $file = \App\AppConfig::$path . "/data/products.json";
+        $file = AppConfig::$path . "/data/products.json";
 
         $dataFile = fopen($file, "r") or die("Unable to open file!");
         $data = fread($dataFile, filesize($file));

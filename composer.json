@@ -14,5 +14,7 @@
             "email": "aldi.fajrin@outlook.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpstan/phpstan": "^1.11"
+    }
 }
