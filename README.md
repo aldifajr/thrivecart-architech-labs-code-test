@@ -11,7 +11,9 @@ This project is developed with PHP 8.3 and should be run via command line.
   
 Orders are stored in a generated file inside ./data/basket.json  
   
-I skip PHPUnit and Docker, but I can provide it later. I hope the other additional features can cover it up.
+I skip PHPUnit and Docker, but I can provide it later. I hope the other additional features can cover it up.  
+  
+I also receive some warnings from PHPStan, I think because one of my namespace is not registered in composer.json but this does not affect the app's functionalities
 
 ## System-Requirements
 
