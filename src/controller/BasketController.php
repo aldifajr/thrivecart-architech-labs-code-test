@@ -66,8 +66,8 @@ class PriceCalculator{
         }
 
         // Get delivery cost and offers
-        $deliveryCost = self::getBasicDeliveryCost($priceAllItems);
         $offers = self::getOffers($items);
+        $deliveryCost = self::getBasicDeliveryCost($priceAllItems - $offers['discount-from-offers']);
 
         return [
             "price-all-items"   => $priceAllItems,
@@ -94,8 +94,7 @@ class PriceCalculator{
         $R01IsInTheBasket = false;
         $discountFromOffers = null;
         $activeOffer = [
-            "name"              => "Buy one red widget, get the second half price",
-            "offered-item"   => null
+            "name"           => "Buy one red widget, get the second half price"
         ];
 
         // Check if R01 is in the basket
@@ -105,13 +104,26 @@ class PriceCalculator{
 
         // Check if there are more than 1 items in the basket
         if(count($items) > 1 and $R01IsInTheBasket){
-            $discountFromOffers = (bcmul("{$items[1]->price}", "0.5", 2));
-            $activeOffer["offered-item"] = $items[1];
+            $discountFromOffers = self::getDiscountFromOffers($items);
         }
 
         return [
             "offers"                => $activeOffer,
             "discount-from-offers"  => $discountFromOffers
         ];
+    }
+
+    private static function getDiscountFromOffers(array $items): float{
+        $R01Items = [];
+
+        foreach($items as $key => $item){
+            if($item->code === 'R01') $R01Items[] = $item;
+        }
+
+        if(count($R01Items) >= 2){
+            return $R01Items[0]->price * 0.5;
+        }
+
+        return 0;
     }
 }
