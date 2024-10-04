@@ -1,0 +1,20 @@
+{
+    "name": "aldi/thrivecart-architech-labs-code-test",
+    "autoload": {
+        "psr-4": {
+            "App\\controller\\": "src/controller/",
+            "App\\interface\\": "src/interface/",
+            "App\\repository\\": "src/repository/",
+            "App\\cli\\": "src/cli/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aldi Fajrin",
+            "email": "aldi.fajrin@outlook.com"
+        }
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^1.11"
+    }
+}
